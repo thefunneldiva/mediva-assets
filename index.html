@@ -16,9 +16,14 @@
             color: #fff;
         }
 
-        .container {
-            text-align: center;
-            padding: 40px 0;
+        canvas {
+            margin: auto;
+            display: block;
+            width: 100%;
+        }
+
+        img {
+            width: 50%;
         }
 
         h1, h2 {
@@ -112,14 +117,16 @@
         }
 
         #headline {
+            height: auto; /* Adjust height based on content */
             font-family: 'Courier', monospace;
             font-size: 20px;
-            white-space: nowrap;
-            overflow: hidden;
+            white-space: normal; /* Allow text to wrap */
+            overflow: visible; /* Show overflowing text */
             display: inline-block;
             border-right: 3px solid black; /* The blinking caret */
             animation: blink-caret 0.75s step-end infinite; /* Blinking effect */
         }
+
 
         @keyframes blink-caret {
             from, to { border-color: transparent; }
@@ -130,20 +137,22 @@
 <body>
 
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row py-5">
             <div class="col-lg-8">
-                <h1 class="neon fade-in">Mediva Digital Assets</h1>
-                <h2 class="neon fade-in" style="animation-delay: 0.5s;">Custom JS and CSS</h2>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <h1 class="neon fade-in">Mediva Digital Assets</h1>
+                        <h2 class="neon fade-in" style="animation-delay: 0.5s;">Custom JS and CSS</h2>
+                        <h1 class="neon" id="headline"></h1>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <canvas id="myCanvas" width="800" height="600"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <section class="py-5">
-            <div class="container">
-                <h1 class="neon" id="headline"></h1>
-            </div>
-        </section>
-
-        <div class="row justify-content-center section">
+        <!-- <div class="row justify-content-center section">
             <div class="col-md-4">
                 <a href="#css" class="btn-custom fade-in" style="animation-delay: 1s;">CSS</a>
             </div>
@@ -153,7 +162,7 @@
             <div class="col-md-4">
                 <a href="#" class="btn-custom fade-in" style="animation-delay: 1.4s;">CDNS</a>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <section class="css">
@@ -301,6 +310,7 @@
 
     <!-- Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
         const textArray = ["Empower your funnel or website elements!", "Use and enjoy :)"];
         let currentIndex = 0;
@@ -332,6 +342,113 @@
             headline.textContent = ''; // Ensure the headline starts blank
             setTimeout(typeText, 500); // Start typing after a short delay
         });
+
+        // rotating cube
+
+        // Get the canvas element
+        const canvas = document.getElementById('myCanvas');
+
+        // Scene setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas });
+        renderer.setSize(canvas.width, canvas.height);
+
+        // Create a white metallic material
+        const material = new THREE.MeshStandardMaterial({
+            color: 0xffffff,  // White color
+            metalness: 1,     // Fully metallic
+            roughness: 0.3    // Low roughness for a smooth surface
+        });
+
+        // Cube setup
+        const geometry = new THREE.BoxGeometry(3, 3, 3); // Larger cube
+        const cube = new THREE.Mesh(geometry, material);
+        cube.castShadow = true;  // Enable shadow casting
+        cube.receiveShadow = true; // Enable shadow receiving
+        scene.add(cube);
+
+        // Add a light source to illuminate the cube
+        const ambientLight = new THREE.AmbientLight(0x404040); // Ambient light with low intensity
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // White directional light
+        directionalLight.position.set(5, 5, 5).normalize();
+        scene.add(directionalLight);
+
+        // Set up shadow properties
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+        // Add a plane to receive shadows
+        const planeGeometry = new THREE.PlaneGeometry(500, 500);
+        const planeMaterial = new THREE.ShadowMaterial({ opacity: 0.2 }); // Lower opacity to make shadows visible
+        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.rotation.x = - Math.PI / 2;
+        plane.position.y = -2;
+        plane.receiveShadow = true;
+        scene.add(plane);
+
+        // Camera position
+        camera.position.z = 5;
+        camera.position.y = 2; // Adjust height to better view the larger cube
+        camera.lookAt(new THREE.Vector3(0, 0, 0)); // Ensure the camera looks at the center of the scene
+
+        // Variables for mouse drag
+        let isDragging = false;
+        let prevMousePosition = { x: 0, y: 0 };
+        let rotationSpeed = 0.01; // Speed of default rotation
+
+        // Mouse controls
+        window.addEventListener('mousedown', (event) => {
+            isDragging = true;
+            prevMousePosition = { x: event.clientX, y: event.clientY };
+        });
+
+        window.addEventListener('mousemove', (event) => {
+            if (isDragging) {
+                const deltaX = event.clientX - prevMousePosition.x;
+                const deltaY = event.clientY - prevMousePosition.y;
+
+                // Adjust the rotation based on the mouse drag
+                cube.rotation.y += deltaX * 0.01;
+                cube.rotation.x += deltaY * 0.01;
+
+                prevMousePosition = { x: event.clientX, y: event.clientY };
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            isDragging = false;
+        });
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Default rotation
+            if (!isDragging) {
+                cube.rotation.y += rotationSpeed;
+                cube.rotation.x += rotationSpeed * 0.5; // Different speed for x-axis rotation
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Resize handling
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+
+
 
     </script>
 </body>
