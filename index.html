@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Neon Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        h1, h2 {
+            font-size: 2.5em;
+            margin: 0.2em 0;
+            color: #fff;
+            animation: glow 2s infinite;
+        }
+
+        .neon {
+            color: #fff;
+            text-shadow: 0 0 5px #00e0ff, 0 0 10px #00e0ff, 0 0 20px #00e0ff, 0 0 40px #00e0ff;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #00e0ff, 0 0 10px #00e0ff, 0 0 20px #00e0ff, 0 0 40px #00e0ff; }
+            50% { text-shadow: 0 0 10px #00e0ff, 0 0 20px #00e0ff, 0 0 40px #00e0ff, 0 0 60px #00e0ff; }
+            100% { text-shadow: 0 0 5px #00e0ff, 0 0 10px #00e0ff, 0 0 20px #00e0ff, 0 0 40px #00e0ff; }
+        }
+
+        .btn-custom {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1.5em;
+            color: #fff;
+            text-decoration: none;
+            border: 2px solid #00e0ff;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .btn-custom:hover {
+            background-color: #00e0ff;
+            box-shadow: 0 0 10px #00e0ff, 0 0 20px #00e0ff, 0 0 40px #00e0ff;
+        }
+
+        .section {
+            padding: 40px 0;
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.2em;
+            }
+        }
+
+        .attribute {
+            color: greenyellow;
+        }
+
+        .string {
+            color: gold;
+        }
+
+        .blue {
+            color: #00e0ff;
+        }
+
+        code {
+            color: #C81B23;
+        }
+
+        .code {
+            padding: 20px;
+            border: #fff 2px solid;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="neon fade-in">Welcome to Mediva Digital Assets</h1>
+                <h2 class="neon fade-in" style="animation-delay: 0.5s;">Hosted on Github + Netlify</h2>
+            </div>
+        </div>
+
+        <div class="row justify-content-center section">
+            <div class="col-md-4">
+                <a href="#css" class="btn-custom fade-in" style="animation-delay: 1s;">CSS</a>
+            </div>
+            <div class="col-md-4">
+                <a href="#" class="btn-custom fade-in" style="animation-delay: 1.2s;">JS</a>
+            </div>
+            <div class="col-md-4">
+                <a href="#" class="btn-custom fade-in" style="animation-delay: 1.4s;">CDNS</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="css">
+        <div class="container" style="text-align: left;">
+
+            <!-- code -->
+            <div class="code">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <h2>Glowing Button</h2>
+                        <p>You can change the color of your choice here. (linear-gradient(#4d00ff, #673fd7))</p>
+<pre style="text-align: left;"><span class="attribute">.mediva-glow-btn</span> {
+    <span class="blue">background-image: </span> linear-gradient(#4d00ff, #673fd7);
+    <span class="blue">border-radius: </span> 32px !important;
+    <span class="blue">transition: </span> transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    <span class="blue">background-color: </span> #00000000 !important;
+    <span class="blue">backdrop-filter: </span> blur(20px);
+    <span class="blue">box-shadow: </span> 0 -7px 20px rgba(110, 48, 255, .27),
+        1px 7px 20px 1px rgba(103, 63, 215, .65),
+        inset 6px -6px 16px rgba(255, 255, 255, .08),
+        inset 0 0 20px rgba(255, 255, 255, .08);
+    <span class="blue">font-family: </span> "Poppins-medium";
+}</pre>
+
+                        <p>How to implement:</p>
+                        <div>
+                            <b>1. Copy the CSS above and paste it on the Custom CSS.</b>
+                        </div>
+                        <div>
+                            <b>2. Remove the Box Shadow option in Advanced settings.</b>
+                            <img src="./images/glow-button.png" alt="">
+                        </div>
+                        <div>
+                            <b>3. Add the "mediva-glow-btn" in button Custom Class.</b>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <p>Result: </p>
+            
+                        <button style="
+                            background-image: linear-gradient(#4d00ff, #673fd7);
+                            border-radius: 32px !important;
+                            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+                            background-color: #00000000 !important;
+                            backdrop-filter: blur(20px);
+                            border: none;
+                            color: #fff;
+                            font-weight: bold;
+                            padding: 15px 20px 15px 20px;
+                            box-shadow: 0 -7px 20px rgba(110, 48, 255, .27), 1px 7px 20px 1px rgba(103, 63, 215, .65), inset 6px -6px 16px rgba(255, 255, 255, .08), inset 0 0 20px rgba(255, 255, 255, .08);
+                            font-family: Arial
+                        ">Click Here To Login</button>
+                    </div>
+                </div>
+            </div>
+            <!-- end code -->
+
+            <!-- code -->
+            <div class="code mt-5">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <h2>Glowing Text</h2>
+                        <p>You can change the hex colors anytime.</p>
+<pre style="text-align: left;"><span class="attribute">.mediva-glow-txt</span> {
+    <span class="blue">color: </span> #ffffff; /* white */
+    <span class="blue">text-shadow: </span> 0 0 5px #00e0ff,
+        0 0 10px #00e0ff,
+        0 0 20px #00e0ff,
+        0 0 40px #00e0ff !important;
+}</pre>
+
+                        <p>How to implement:</p>
+                        <div>
+                            <b>1. Copy the CSS above and paste it on the Custom CSS.</b>
+                        </div>
+                        <div>
+                            <b>2. Add the "mediva-glow-txt" in headline, subheadline or paragraph Custom Class.</b>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <p>Result: </p>
+    
+                        <h2>Hello World</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- end code -->
+
+            <!-- code -->
+            <div class="code mt-5">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <h2>Nice FAQ</h2>
+                        <p>You can change the hex colors anytime.</p>
+<pre style="text-align: left;"><span class="attribute">.faq-separated-child</span> {
+    <span class="blue">border-radius: </span> 40px !important;
+    <span class="blue">padding: </span> 12px;
+    <span class="blue">background-color: </span> rgba(255, 255, 255, .03);
+    <span class="blue">background-image: </span> linear-gradient(rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, .05));
+    <span class="blue">line-height: </span> 40px !important;
+    <span class="blue">border: </span> 1px solid rgba(255, 255, 255, .10) !important;
+}</pre>
+
+                        <p>How to implement:</p>
+                        <div>
+                            <b>1. Copy the CSS above and paste it on the Custom CSS.</b>
+                        </div>
+                        <div>
+                            <b>2. Adjust the FAQ Color Options on Advanced settings.</b>
+                            <ul>
+                                <li>Title text color (open) = #ffffff or white</li>
+                                <li>Title text color (closed) = #ffffff or white</li>
+                                <li>Title background color (open) = transparent</li>
+                                <li>Content text color = #ffffff or white</li>
+                                <li>Content background color = transparent</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <p>Result: </p>
+                        <img src="./images/faq.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <!-- end code -->
+            
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div id="css">
+                <h2>CSS</h2>
+                <p>Paste this on your GoHighlevel web/funnel editor > Tracking Code > Header Tracking</p>
+                <code>&ltlink <span class="attribute">rel</span>=<span class="string">"stylesheet"</span> <span class="attribute">href</span>=<span class="string">"https://mediva-digital-assets.netlify.app/css/mediva-animate-on-scroll.css"</span>></code>
+            </div>
+            <div id="js">
+                <h2>JS</h2>
+                <p>Paste this on your GoHighlevel web/funnel editor > Tracking Code > Footer Tracking</p>
+                <code>&ltscript <span class="attribute">src</span>=<span class="string">"https://mediva-digital-assets.netlify.app/mediva-animate-on-scroll.js"</span>>&lt/script></code>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
